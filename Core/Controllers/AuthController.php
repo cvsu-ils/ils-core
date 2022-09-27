@@ -76,13 +76,6 @@ class AuthController extends Controller {
         }
     }
 
-    public function Create($googleInfo = NULL) {
-        $db = new Database(Application::$app->config->env->APP_ENV == 'local' ? 'ils-local' : 'ils-live');
-        if($db->CountTable("users", "WHERE `email` = :in_email", ['in_email' => $googleInfo->email]) <= 0) {
-            $db->InsertOne("users", ['email', 'active'], [':in_email' => $googleInfo->email, ':in_active' => $googleInfo->id]);
-        }
-    }
-
     public function DeAuth() {
         // Check Session User
         if(!Application::$app->session->GetAuth()) {

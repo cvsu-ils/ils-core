@@ -18,7 +18,7 @@ class User extends Controller {
         if(is_null($googleEmail)) {
             return FALSE;
         }
-        $db = new Database(Application::$app->config->env->APP_ENV == 'local' ? 'ils-local' : 'ils-live');
+        $db = new Database('ils');
         if($db->CountTable("users", "WHERE `gu_id` = :in_google_id", ['in_google_id' => $googleId]) <= 0) {
             $db->InsertOne("users", ['email', 'gu_id'], [':in_email' => $googleEmail, ':in_google_id' => $googleId]);
         }
@@ -34,7 +34,7 @@ class User extends Controller {
         if(is_null($userId)) {
             return FALSE;
         }
-        $db = new Database(Application::$app->config->env->APP_ENV == 'local' ? 'ils-local' : 'ils-live');
+        $db = new Database('ils');
         if($db->CountTable("users", "WHERE `id` = :in_id", [':in_id' => $userId]) <= 0) {
             return FALSE;
         }
