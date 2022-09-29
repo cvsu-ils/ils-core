@@ -73,7 +73,7 @@ class User extends Controller {
         $data['profile'] = $profile;
         $data['google_userinfo'] = $googleUserInfo;
 
-        return $data;        
+        return Application::$app->ToObject($data);
     }
 
     public function GetId() {
