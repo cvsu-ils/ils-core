@@ -78,12 +78,15 @@ class AuthController extends Controller {
 
     public function DeAuth() {
         // Check Session User
-        if(!Application::$app->session->GetAuth()) {
-            return FALSE;
+        if(Application::$app->session->GetAuth()) {
+            // Unset Session User
+            Application::$app->session->DeAuth();
         }
-
-        // Unset Session User
-        Application::$app->session->DeAuth();
+        // Check Session Guest User
+        if(Application::$app->session->GetAuthGuest()) {
+            // Unset Session Guest User
+            Application::$app->session->DeAuthGuest();
+        }
 
         // Redirect to landing
         Application::$app->session->SetSwal('success', "Signed out!", "Successfully signed out");

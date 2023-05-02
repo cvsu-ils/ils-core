@@ -46,27 +46,29 @@ class User extends Controller {
         // Modify Profile
         $profile = array();
         $userType = array();
-        $profile['id'] = $profileInfo['id'];
-        $profile['firstName'] = $profileInfo['first_name'];
-        $profile['middleName'] = $profileInfo['middle_name'];
-        $profile['lastName'] = $profileInfo['last_name'];
-        $profile['fullName'] = $profileInfo['first_name'] . " " . $profileInfo['middle_name'] . " " . $profileInfo['last_name'];
-        $profile['sex'] = $profileInfo['sex'];
-        $profile['address'] = $profileInfo['address'];
-        $profile['mobileNumber'] = $profileInfo['mobile_number'];
-        $profile['avatar'] = $profileInfo['avatar'] ?? $googleUserInfo['gu_picture'];
-        $profile['campus'] = $masterService->Match(['campus' => $profileInfo['campus_id']]);
-        $userType = $masterService->Match(['userType' => $profileInfo['user_type_id']]);
-        switch($userType['label']) {
-            case "Staff":
-                $userType['info'] = array(
-                    'id' => $profileInfo['employee_id'],
-                    'position' => $profileInfo['position'],
-                    'office' => $masterService->Match(['office' => $profileInfo['office_id']])
-                );
-                break;
+        if($profileInfo) {
+            $profile['id'] = $profileInfo['id'];
+            $profile['firstName'] = $profileInfo['first_name'];
+            $profile['middleName'] = $profileInfo['middle_name'];
+            $profile['lastName'] = $profileInfo['last_name'];
+            $profile['fullName'] = $profileInfo['first_name'] . " " . $profileInfo['middle_name'] . " " . $profileInfo['last_name'];
+            $profile['sex'] = $profileInfo['sex'];
+            $profile['address'] = $profileInfo['address'];
+            $profile['mobileNumber'] = $profileInfo['mobile_number'];
+            $profile['avatar'] = $profileInfo['avatar'] ?? $googleUserInfo['gu_picture'];
+            $profile['campus'] = $masterService->Match(['campus' => $profileInfo['campus_id']]);
+            $userType = $masterService->Match(['userType' => $profileInfo['user_type_id']]);
+            switch($userType['label']) {
+                case "Staff":
+                    $userType['info'] = array(
+                        'id' => $profileInfo['employee_id'],
+                        'position' => $profileInfo['position'],
+                        'office' => $masterService->Match(['office' => $profileInfo['office_id']])
+                    );
+                    break;
+            }
+            $profile['userType'] = $userType;
         }
-        $profile['userType'] = $userType;
 
         $data = array();
         $data['user'] = $user;
