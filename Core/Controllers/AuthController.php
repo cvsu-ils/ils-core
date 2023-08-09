@@ -36,7 +36,8 @@ class AuthController extends Controller {
 
         if(isset($data['code']) && !empty($data['code'])) {
             // Initialize Google Client
-            $client = Application::$app->services->googleService->client;
+            $googleService = new Application::$app->providers->GoogleService;
+            $client = $googleService->client;
 
             // Set Google Token
             $token = $client->fetchAccessTokenWithAuthCode($data['code']);
