@@ -30,7 +30,7 @@ class User extends Controller {
     }
 
     public function FindUser($userId = NULL) {
-        $masterService = Application::$app->services->masterService;
+        $masterService = new Application::$app->providers->MasterService;
         if(is_null($userId)) {
             return FALSE;
         }
@@ -48,6 +48,7 @@ class User extends Controller {
         $userType = array();
         if($profileInfo) {
             $profile['id'] = $profileInfo['id'];
+            $profile['email'] = $user['email'];
             $profile['firstName'] = $profileInfo['first_name'];
             $profile['middleName'] = $profileInfo['middle_name'];
             $profile['lastName'] = $profileInfo['last_name'];
