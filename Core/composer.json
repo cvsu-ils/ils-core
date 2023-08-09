@@ -1,0 +1,19 @@
+{
+    "name": "cvsu-ils/core",
+    "description": "CvSU ILS Core",
+    "type": "library",
+    "require": {
+        "infinitybrackets/php-mvc-core": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IntegratedLibrarySystem\\Core\\": "Core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "John Vincent Bonza",
+            "email": "jayveeinfinity@gmail.com"
+        }
+    ]
+}
